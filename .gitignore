@@ -1,0 +1,49 @@
+client/.DS_STORE
+client/node_modules
+client/scripts/flow/*/.flowconfig
+client/.flowconfig
+client/*~
+client/*.pyc
+client/.grunt
+client/_SpecRunner.html
+client/__benchmarks__
+client/build/
+client/remote-repo/
+client/coverage/
+client/.module-cache
+client/fixtures/dom/public/react-dom.js
+client/fixtures/dom/public/react.js
+client/test/the-files-to-test.generated.js
+client/*.log*
+client/chrome-user-data
+client/*.sublime-project
+client/*.sublime-workspace
+client/.idea
+client/*.iml
+client/.vscode
+client/*.swp
+client/*.swo
+client/packages/react-devtools-core/dist
+client/packages/react-devtools-extensions/chrome/build
+client/packages/react-devtools-extensions/chrome/*.crx
+client/packages/react-devtools-extensions/chrome/*.pem
+client/packages/react-devtools-extensions/firefox/build
+client/packages/react-devtools-extensions/firefox/*.xpi
+client/packages/react-devtools-extensions/firefox/*.pem
+client/packages/react-devtools-extensions/shared/build
+client/packages/react-devtools-extensions/.tempUserDataDir
+client/packages/react-devtools-inline/dist
+client/packages/react-devtools-shell/dist
+client/packages/react-devtools-scheduling-profiler/dist
+
+# Node modules
+server/node_modules
+
+# Adonis directory for storing tmp files
+server/tmp
+
+# Environment variables, never commit this file
+server/.env
+
+# The development sqlite file
+server/database/*.sqlite
