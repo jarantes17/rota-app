@@ -30,8 +30,8 @@ class AuthService {
   getDefault() {
     const modules = [
       {
-        title: 'Dashboard',
-        path: '/admin/dashboard',
+        title: 'Início',
+        path: '/admin/start',
         iconName: 'FaHome',
         subModules: []
       }
@@ -106,6 +106,11 @@ class AuthService {
             title: 'Fornecedores',
             path: '/admin/suppliers',
             iconName: ''
+          },
+          {
+            title: 'Despesas',
+            path: '/admin/expenses',
+            iconName: ''
           }
         ]
       },
@@ -116,22 +121,16 @@ class AuthService {
         subModules: [
           {
             title: 'Despesas',
-            path: '/admin/expenses',
+            path: '/admin/expensesRpt',
             iconName: ''
           },
           {
             title: 'Faturamento',
-            path: '/admin/revenues',
+            path: '/admin/revenuesRpt',
             iconName: ''
           }
         ]
       },
-      // {
-      //   title: 'Orçamentos',
-      //   path: '/admin/budgets',
-      //   iconName: 'FaRegListAlt',
-      //   subModules: []
-      // },
       {
         title: 'Transações',
         path: '/admin/transactions',

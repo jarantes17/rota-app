@@ -66,6 +66,9 @@ Route.group(() => {
   Route.get('bills/coupon', 'BillController.coupon').as('bills.coupon')
 
   Route.get('cash', 'CashController.index').as('cash.index')
+  Route.get('transactions', 'TransactionController.index').as(
+    'transactions.index'
+  )
 })
   .middleware(['auth'])
   .namespace('Admin')

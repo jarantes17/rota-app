@@ -35,6 +35,7 @@ client/packages/react-devtools-extensions/.tempUserDataDir
 client/packages/react-devtools-inline/dist
 client/packages/react-devtools-shell/dist
 client/packages/react-devtools-scheduling-profiler/dist
+client/.env
 
 # Node modules
 server/node_modules

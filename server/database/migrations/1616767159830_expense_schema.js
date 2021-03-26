@@ -3,12 +3,12 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class OutGoingSchema extends Schema {
+class ExpenseSchema extends Schema {
   up() {
-    this.create('out_goings', (table) => {
+    this.create('expenses', (table) => {
       table.increments()
       table.string('type', 30).notNullable()
-      table.string('description', 100).nullable()
+      table.string('observation', 100).nullable()
       table.decimal('amount', 12, 2).notNullable()
       table.date('pay_date').notNullable()
       table.timestamps()
@@ -16,8 +16,8 @@ class OutGoingSchema extends Schema {
   }
 
   down() {
-    this.drop('out_goings')
+    this.drop('expenses')
   }
 }
 
-module.exports = OutGoingSchema
+module.exports = ExpenseSchema

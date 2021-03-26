@@ -4,6 +4,11 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const { startOfYesterday } = use('date-fns')
+const Transaction = use('App/Models/Transaction')
+
+const Transformer = use('App/Transformers/Transaction/TransactionTransformer')
+
 /**
  * Resourceful controller for interacting with transactions
  */
@@ -15,72 +20,23 @@ class TransactionController {
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
-   * @param {View} ctx.view
    */
-  async index({ request, response, view }) {}
+  async index({ request, response, transform }) {
+    let transactions = await Transaction.query()
+      .where('created_at', '>=', startOfYesterday())
+      .orderBy('created_at')
+      .fetch()
 
-  /**
-   * Render a form to be used for creating a new transaction.
-   * GET transactions/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create({ request, response, view }) {}
+    transactions = await transform
+      .include('product')
+      .collection(transactions, Transformer)
 
-  /**
-   * Create/save a new transaction.
-   * POST transactions
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async store({ request, response }) {}
-
-  /**
-   * Display a single transaction.
-   * GET transactions/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async show({ params, request, response, view }) {}
-
-  /**
-   * Render a form to update an existing transaction.
-   * GET transactions/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit({ params, request, response, view }) {}
-
-  /**
-   * Update transaction details.
-   * PUT or PATCH transactions/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async update({ params, request, response }) {}
-
-  /**
-   * Delete a transaction with id.
-   * DELETE transactions/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async destroy({ params, request, response }) {}
+    return response.status(200).send({
+      data: {
+        transactions: transactions
+      }
+    })
+  }
 }
 
 module.exports = TransactionController
