@@ -2,12 +2,12 @@ import React from "react"
 import { Switch } from "react-router-dom"
 import { AdminRoute, AuthRoute, ClientRoute, CommonRoute } from "./index"
 import {
-  Dashboard,
   Product,
   User,
   Board,
   Budget,
-  Revenue,
+  RevenueReport,
+  ExpenseReport,
   Expense,
   Transaction,
   Order,
@@ -18,20 +18,22 @@ import {
   ChangePassword,
   Main,
   ForgotPassword,
-  Menu
+  Menu,
+  Start
 } from "../pages"
 
 export const Routes = () => {
   return (
     <Switch>
       {/* admin routes */}
-      <AdminRoute path="/admin/dashboard" exact component={Dashboard} />
+      <AdminRoute path="/admin/start" exact component={Start} />
       <AdminRoute path="/admin/products" exact component={Product} />
       <AdminRoute path="/admin/users" exact component={User} />
       <AdminRoute path="/admin/boards" exact component={Board} />
       <AdminRoute path="/admin/suppliers" exact component={Supplier} />
+      <AdminRoute path="/admin/expensesRpt" exact component={ExpenseReport} />
+      <AdminRoute path="/admin/revenuesRpt" exact component={RevenueReport} />
       <AdminRoute path="/admin/expenses" exact component={Expense} />
-      <AdminRoute path="/admin/revenues" exact component={Revenue} />
       <AdminRoute path="/admin/budgets" exact component={Budget} />
       <AdminRoute path="/admin/transactions" exact component={Transaction} />
       <AdminRoute path="/admin/orders" exact component={Order} />

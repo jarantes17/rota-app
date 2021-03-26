@@ -35,7 +35,7 @@ export const CommonRoute = ({ component: Component, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: !isClient ? "/admin/dashboard" : "/client/menu",
+              pathname: !isClient ? "/admin/start" : "/client/menu",
               state: { from: props.location }
             }}
           />
@@ -66,7 +66,7 @@ export const AuthRoute = ({ component: Component, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: !isClient ? "/admin/dashboard" : "/client/menu",
+              pathname: !isClient ? "/admin/start" : "/client/menu",
               state: { from: props.location }
             }}
           />

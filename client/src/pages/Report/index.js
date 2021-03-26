@@ -1,2 +1,2 @@
-export * from "./Expense"
-export * from "./Revenue"
+export * from "./ExpenseReport"
+export * from "./RevenueReport"
