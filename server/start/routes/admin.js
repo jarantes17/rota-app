@@ -60,7 +60,7 @@ Route.group(() => {
   Route.put('bills/:id', 'BillController.update')
     .middleware(['findBill'])
     .as('bills.update')
-  Route.put('bills/savePayments', 'BillController.savePayments').as(
+  Route.patch('bills/savePayments', 'BillController.savePayments').as(
     'bills.savePayments'
   )
   Route.get('bills/coupon', 'BillController.coupon').as('bills.coupon')

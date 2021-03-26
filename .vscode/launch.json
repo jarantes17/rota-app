@@ -1,0 +1,51 @@
+{
+  // Use o IntelliSense para saber mais sobre os atributos possíveis.
+  // Focalizar para exibir as descrições dos atributos existentes.
+  // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    
+    {
+      "name": "Launch Chrome",
+      "request": "launch",
+      "type": "pwa-chrome",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/client/src"
+    },
+    {
+      "name": "Launch Edge",
+      "request": "launch",
+      "type": "edge",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/client/src"
+    },
+    {
+      "name": "Launch Firefox",
+      "request": "launch",
+      "reAttach": true,
+      "type": "firefox",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/client",
+      "firefoxExecutable": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+      "pathMappings": [
+        {
+          "url": "http://localhost:3000/mnt/d/CODES/POS/TCC/frontend/react/rota-web/src/",
+          "path": "${workspaceFolder}/client/src/"
+        }
+      ]
+    },
+	{
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Adonis",
+      "runtimeExecutable": "npm",
+      "cwd": "${workspaceFolder}/server",
+      "runtimeArgs": [
+        "run",
+        "debug"
+      ],
+      "port": 9229,
+      "internalConsoleOptions": "openOnSessionStart"
+    }
+  ]
+}

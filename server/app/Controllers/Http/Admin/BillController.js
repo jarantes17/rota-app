@@ -134,7 +134,7 @@ class BillController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async savePayments({ request, response, auth }) {
+  async savePayments({ request, response }) {
     const trx = await Database.beginTransaction()
     try {
       const { bill_id, payments } = request.all()

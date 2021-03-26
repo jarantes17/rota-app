@@ -37,8 +37,7 @@ export const OrderItem = ({ order, onEditClick, onCloseBillClick }) => {
                   </S.OrderItemCount>
                 </S.OrderItemWrapperLeft>
               </Col>
-              <Col>
-                <S.OrderItemWrapper>
+              <Col> {order.id && (<S.OrderItemWrapper>
                   <TableButton
                     background="var(--dark)"
                     onClick={() => {
@@ -63,7 +62,7 @@ export const OrderItem = ({ order, onEditClick, onCloseBillClick }) => {
                     target={`bill_button${order.id}`}
                     content="Fechar Conta"
                   />
-                </S.OrderItemWrapper>
+                </S.OrderItemWrapper>)}
               </Col>
             </Row>
             <S.CreationDateInfo>
