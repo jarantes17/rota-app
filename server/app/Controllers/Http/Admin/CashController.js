@@ -21,6 +21,10 @@ class CashController {
       'select * from fu_get_cash_hour_by_hour(?)',
       [cash_date]
     )
+    const amountByPaymentTypes = await Database.raw(
+      'select * from fu_get_payments_by_type(?)',
+      [cash_date]
+    )
     return response.status(200).send({
       data: {
         cash_info: cashInfo.rows[0],
@@ -31,7 +35,8 @@ class CashController {
           amounts: hourByHour.rows.map((h) => {
             return parseFloat(h.total_amount)
           })
-        }
+        },
+        amount_by_payment_types: amountByPaymentTypes
       }
     })
   }
