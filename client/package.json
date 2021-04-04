@@ -27,6 +27,7 @@
     "react-chartjs-2": "^2.11.1",
     "react-data-table-component": "^6.11.5",
     "react-data-table-component-extensions": "^1.5.2",
+    "react-datepicker": "^3.6.0",
     "react-dom": "^16.13.1",
     "react-facebook-login": "^4.1.1",
     "react-icons": "^3.11.0",

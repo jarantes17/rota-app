@@ -65,10 +65,18 @@ Route.group(() => {
   )
   Route.get('bills/coupon', 'BillController.coupon').as('bills.coupon')
 
+  // Cash
   Route.get('cash', 'CashController.index').as('cash.index')
+
+  // Transactions
   Route.get('transactions', 'TransactionController.index').as(
     'transactions.index'
   )
+
+  // Expenses
+  Route.resource('expenses', 'ExpenseController')
+    .apiOnly()
+    .middleware(new Map([[['show', 'update', 'destroy'], ['findExpense']]]))
 })
   .middleware(['auth'])
   .namespace('Admin')

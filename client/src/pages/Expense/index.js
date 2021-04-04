@@ -24,7 +24,7 @@ import Swal from "sweetalert2"
 import { MdEdit, MdDelete } from "react-icons/md"
 import { tryAwait } from "../../helpers"
 import Main from "../../components/template/Main"
-import { Input } from "../../components/common"
+import { Input, SelectOption } from "../../components/common"
 
 import * as S from "./styles"
 import {
@@ -43,6 +43,7 @@ export const Expense = () => {
   const [isDropdownButtonOpened, setDropDownButtonOpen] = useState(false)
   const [isRegisterOpened, setRegisterOpen] = useState(false)
   const [expenses, setExpenses] = useState([])
+  const [expenseTypes, setExpenseTypes] = useState([])
   const [loading, setLoading] = useState(false)
   const [loadingTable, setLoadingTable] = useState(false)
   const [editMode, setEditMode] = useState(null)
@@ -66,10 +67,18 @@ export const Expense = () => {
       promise: expenseService.fetch(),
       onResponse: ({
         data: {
-          data: { exepenses }
+          data: { exepenses, expenseTypes }
         }
       }) => {
         setExpenses(exepenses)
+        setExpenseTypes(
+          expenseTypes.map(uom => {
+            return {
+              value: uom.description,
+              label: uom.description
+            }
+          })
+        )
       },
       onError: () => {
         toast.error("Erro ao buscar despesas!")
@@ -260,7 +269,7 @@ export const Expense = () => {
         <Row>
           <Col sm={12}>
             <Header>
-              <h5 className="m-0">Cadastro de Fornecedores</h5>
+              <h5 className="m-0">Cadastro de Despesas</h5>
               <ActionButton>
                 <ButtonDropdown
                   isOpen={isDropdownButtonOpened}
@@ -298,7 +307,7 @@ export const Expense = () => {
                   }
                   columns={columns}
                   data={filteredExpenses()}
-                  noDataComponent="Nenhuma despesa encontrado!"
+                  noDataComponent="Nenhuma despesa encontrada!"
                   pagination
                   paginationPerPage={20}
                   paginationRowsPerPageOptions={[10, 20, 30]}
@@ -320,7 +329,7 @@ export const Expense = () => {
         centered
       >
         <ModalHeader toggle={toggleRegisterModal}>
-          {!editMode ? "Incluir Fornecedor" : "Editar Fornecedor"}
+          {!editMode ? "Incluir Despesa" : "Editar Despesa"}
         </ModalHeader>
         <Form
           ref={formRef}
@@ -329,31 +338,23 @@ export const Expense = () => {
           <input type="hidden" />
           <ModalBody>
             <Row>
-              <Col sm="6">
-                <Input
-                  aria-label="name"
-                  name="name"
-                  label="Nome"
-                  type="text"
-                  disabled={loading}
+              <Col xl="8">
+                <SelectOption
+                  className="basic-single"
+                  classNamePrefix="select"
+                  defaultValue={expenseTypes[0]}
+                  isLoading={loading}
+                  isClearable={false}
+                  name="type"
+                  options={expenseTypes}
+                  label="Tipo de Despesa"
                 />
               </Col>
-              <Col sm="6">
+              <Col xl="4">
                 <Input
-                  aria-label="city"
-                  name="city"
-                  label="Cidade"
-                  type="text"
-                  disabled={loading}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col sm="6">
-                <Input
-                  aria-label="freight"
-                  name="freight"
-                  label="Frete"
+                  aria-label="amount"
+                  name="amount"
+                  label="Valor"
                   type="text"
                   placeholder="0,00"
                   currency
@@ -361,17 +362,26 @@ export const Expense = () => {
                   disabled={loading}
                 />
               </Col>
-              <Col sm="6">
+            </Row>
+            <Row>
+              <Col xl="12">
                 <Input
-                  aria-label="phone"
-                  name="phone"
-                  label="Tel/Cel"
+                  aria-label="pay_date"
+                  name="pay_date"
+                  label="Data do Pagamento"
                   type="text"
-                  className="input-custom"
                   disabled={loading}
-                  mask="(99) 9999-99999"
-                  maskChar={null}
-                  isCellPhone
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col xl="12">
+                <Input
+                  aria-label="observation"
+                  name="observation"
+                  label="Observação"
+                  type="text"
+                  disabled={loading}
                 />
               </Col>
             </Row>

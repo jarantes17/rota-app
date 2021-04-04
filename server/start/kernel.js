@@ -52,7 +52,8 @@ const namedMiddleware = {
   findRefreshToken: 'App/Middleware/FindProductUom',
   findUser: 'App/Middleware/FindUser',
   findOrder: 'App/Middleware/FindOrder',
-  findBill: 'App/Middleware/FindBill'
+  findBill: 'App/Middleware/FindBill',
+  findExpense: 'App/Middleware/FindExpense'
 }
 
 /*
