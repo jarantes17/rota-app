@@ -17,7 +17,7 @@ class ExpenseTransformer extends BumblebeeTransformer {
       id: model.id,
       type: model.type,
       observation: model.observation,
-      amount: model.amount,
+      amount: parseFloat(model.amount),
       pay_date: model.pay_date,
       created_at: model.created_at,
       updated_at: model.updated_at

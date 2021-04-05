@@ -4,6 +4,7 @@ import { Form } from "@unform/web"
 import DataTable from "react-data-table-component"
 import DataTableExtensions from "react-data-table-component-extensions"
 import { format } from "date-fns"
+import ptBR from "date-fns/locale/pt-BR"
 import { toast } from "react-toastify"
 import * as Yup from "yup"
 import {
@@ -20,23 +21,30 @@ import {
   Row,
   Spinner
 } from "reactstrap"
+import DatePicker, { setDefaultLocale } from "react-datepicker"
 import Swal from "sweetalert2"
 import { MdEdit, MdDelete } from "react-icons/md"
 import { tryAwait } from "../../helpers"
 import Main from "../../components/template/Main"
 import { Input, SelectOption } from "../../components/common"
 
+import "react-datepicker/dist/react-datepicker.css"
 import * as S from "./styles"
 import {
   TableButton,
   DefaultContainer,
   TableContainer,
   Header,
-  ActionButton
+  ActionButton,
+  Label,
+  InputWrapper
 } from "../../styles/global"
 import { expenseService } from "../../services"
 
-const expenseSchema = Yup.object().shape({})
+const expenseSchema = Yup.object().shape({
+  type: Yup.string().required("O Tipo de Pagamento é obrigatório"),
+  amount: Yup.string().required("O Valor é obrigatório")
+})
 
 export const Expense = () => {
   const formRef = useRef(null)
@@ -47,6 +55,7 @@ export const Expense = () => {
   const [loading, setLoading] = useState(false)
   const [loadingTable, setLoadingTable] = useState(false)
   const [editMode, setEditMode] = useState(null)
+  const [payDate, setPayDate] = useState(new Date())
 
   const toggleDropdown = () => {
     setDropDownButtonOpen(!isDropdownButtonOpened)
@@ -67,10 +76,10 @@ export const Expense = () => {
       promise: expenseService.fetch(),
       onResponse: ({
         data: {
-          data: { exepenses, expenseTypes }
+          data: { expenses, expenseTypes }
         }
       }) => {
-        setExpenses(exepenses)
+        setExpenses(expenses)
         setExpenseTypes(
           expenseTypes.map(uom => {
             return {
@@ -95,7 +104,7 @@ export const Expense = () => {
           abortEarly: false
         })
         tryAwait({
-          promise: expenseService.store({ ...form }),
+          promise: expenseService.store({ ...form, pay_date: payDate }),
           onResponse: ({
             status,
             data: {
@@ -199,16 +208,17 @@ export const Expense = () => {
 
   useEffect(() => {
     retrieveExpenses()
+    setDefaultLocale(ptBR)
   }, [])
 
   const columns = [
     {
-      name: "Tipo",
-      selector: "type.description",
+      name: "Tipo de Despesa",
+      selector: "type",
       sortable: true
     },
     {
-      name: "Data",
+      name: "Data do Pagamento",
       selector: "pay_date",
       sortable: true,
       format: row => format(new Date(row.pay_date), "dd/MM/yyyy")
@@ -216,7 +226,12 @@ export const Expense = () => {
     {
       name: "Valor",
       selector: "amount",
-      sortable: true
+      sortable: true,
+      format: row =>
+        row.amount.toLocaleString(undefined, {
+          maximumFractionDigits: 2,
+          minimumFractionDigits: 2
+        })
     },
     {
       name: "Observação",
@@ -365,13 +380,16 @@ export const Expense = () => {
             </Row>
             <Row>
               <Col xl="12">
-                <Input
-                  aria-label="pay_date"
-                  name="pay_date"
-                  label="Data do Pagamento"
-                  type="text"
-                  disabled={loading}
-                />
+                <Label>Data do Pagamento</Label>
+                <InputWrapper>
+                  <DatePicker
+                    name="pay_date"
+                    selected={payDate}
+                    onChange={date => setPayDate(date)}
+                    className="input-custom"
+                    dateFormat="dd/MM/yyyy"
+                  />
+                </InputWrapper>
               </Col>
             </Row>
             <Row>

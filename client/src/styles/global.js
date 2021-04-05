@@ -231,6 +231,29 @@ export const Label = styled.label`
   margin-bottom: 0;
 `
 
+export const InputWrapper = styled.div`
+  width: 100%;
+  background-color: var(--color-background-input);
+  background: ${props =>
+    props.background ? props.background : "var(--color-background-input)"};
+  border: 2px solid
+    ${props =>
+      props.isFocused
+        ? "var(--color-background-input-focused)"
+        : "var(--color-background-input)"};
+  overflow: hidden;
+  border-radius: 5px;
+  transition: border 0.2s ease 0s;
+  svg {
+    fill: ${props =>
+      props.isFocused
+        ? "var(--color-background-input-focused)"
+        : "var(--color-primary)"};
+    font-size: 16px;
+    transition: fill 0.2s ease 0s;
+  }
+`
+
 export const ErrorContent = styled.span`
   font-size: 0.75rem;
   color: var(--color-error);

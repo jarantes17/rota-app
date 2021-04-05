@@ -16,7 +16,7 @@ class ExpenseController {
    */
   async index({ response, transform }) {
     let expenses = await Expense.query().orderBy('id').fetch()
-    let expenseTypes = await FlexField.query()
+    const expenseTypes = await FlexField.query()
       .where('name', 'EXPENSE_TYPES')
       .where('status', 'A')
       .fetch()
@@ -43,7 +43,7 @@ class ExpenseController {
    * @param {Response} ctx.response
    */
   async store({ request, response, transform }) {
-    const data = request.only(['code', 'status'])
+    const data = request.only(['type', 'amount', 'pay_date', 'observation'])
     let expense = await Expense.create(data)
 
     expense = await transform.item(expense, Transformer)
@@ -75,9 +75,11 @@ class ExpenseController {
    * @param {Response} ctx.response
    */
   async update({ request, response, expense, transform }) {
-    const { code, status } = request.post()
-    expense.code = code || expense.code
-    expense.status = status || expense.status
+    const { type, amount, pay_date, observation } = request.all()
+    expense.type = type || expense.type
+    expense.amount = amount || expense.amount
+    expense.pay_date = pay_date || expense.pay_date
+    expense.observation = observation || expense.observation
 
     await expense.save()
 

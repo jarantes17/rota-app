@@ -8,15 +8,14 @@ const Expense = use('App/Models/Expense')
 class FindExpense {
   /**
    * @param {object} ctx
-   * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle({ request }, next) {
+  async handle(ctx, next) {
     const { request, response } = ctx
     const { id } = request.params
     const expense = await Expense.find(id)
 
-    if (!order) {
+    if (!expense) {
       return response.status(404).json({
         message: 'Despesa não encontrada',
         id
