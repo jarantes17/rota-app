@@ -27,7 +27,12 @@ class CashController {
     )
     return response.status(200).send({
       data: {
-        cash_info: cashInfo.rows[0],
+        cash_info: {
+          amount_entry: parseFloat(cashInfo.rows[0].amount_entry),
+          amount_out: parseFloat(cashInfo.rows[0].amount_out),
+          total_closed: parseInt(cashInfo.rows[0].total_closed),
+          total_opened: parseInt(cashInfo.rows[0].total_opened)
+        },
         hour_by_hour: {
           hours_of_day: hourByHour.rows.map((h) => {
             return h.hour_of_day
