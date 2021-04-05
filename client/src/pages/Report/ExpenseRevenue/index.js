@@ -5,7 +5,7 @@ import { format } from "date-fns"
 import Main from "../../../components/template/Main"
 import * as S from "./styles"
 
-export const ExpenseReport = () => {
+export const ExpenseRevenue = () => {
   const formRef = useRef(null)
 
   const handleRegisterSubmit = useCallback(async form => {}, [])
@@ -18,11 +18,11 @@ export const ExpenseReport = () => {
 
   return (
     <Main
-      title="Despesas"
-      subtitle="Controle de Despesas"
+      title="Despesas e Faturamento"
+      subtitle="Controle de Despesas e Faturamento"
       icon="FaFileInvoiceDollar"
     >
-      <S.Container>Expense Content</S.Container>
+      <S.Container>Expense and Revenue Content</S.Container>
     </Main>
   )
 }

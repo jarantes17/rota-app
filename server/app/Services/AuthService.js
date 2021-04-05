@@ -120,13 +120,8 @@ class AuthService {
         iconName: 'FaChartBar',
         subModules: [
           {
-            title: 'Despesas',
-            path: '/admin/expensesRpt',
-            iconName: ''
-          },
-          {
-            title: 'Faturamento',
-            path: '/admin/revenuesRpt',
+            title: 'Despesas e Faturamento',
+            path: '/admin/reports/expensesRevenues',
             iconName: ''
           }
         ]

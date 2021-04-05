@@ -83,7 +83,7 @@ export const Expense = () => {
         setExpenseTypes(
           expenseTypes.map(uom => {
             return {
-              value: uom.description,
+              value: uom.value,
               label: uom.description
             }
           })
@@ -214,7 +214,7 @@ export const Expense = () => {
   const columns = [
     {
       name: "Tipo de Despesa",
-      selector: "type",
+      selector: "type.description",
       sortable: true
     },
     {
@@ -249,7 +249,7 @@ export const Expense = () => {
               setEditMode(row.id)
               toggleRegisterModal()
               setTimeout(() => {
-                formRef.current.setData({ ...row })
+                formRef.current.setData({ ...row, type: row.type.value })
               }, 50)
             }}
           >

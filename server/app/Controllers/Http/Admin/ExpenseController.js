@@ -25,7 +25,14 @@ class ExpenseController {
 
     return response.status(200).send({
       data: {
-        expenses: expenses,
+        expenses: expenses.map((e) => {
+          return {
+            ...e,
+            type: expenseTypes.rows.find(
+              (et) => et.name === 'EXPENSE_TYPES' && et.value === e.type
+            )
+          }
+        }),
         expenseTypes: expenseTypes.rows.map((et) => {
           return {
             name: et.name,
