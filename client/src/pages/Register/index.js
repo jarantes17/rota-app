@@ -64,7 +64,7 @@ export const Register = props => {
         }
       }
     },
-    [dispatch]
+    [dispatch, props]
   )
 
   const goBack = () => {
