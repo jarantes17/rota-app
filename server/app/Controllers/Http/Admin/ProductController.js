@@ -33,7 +33,7 @@ class ProductController {
     if (code) {
       productQuery.where('code', 'like', `%${code}%`)
     }
-    if(resale_product) {
+    if (resale_product) {
       productQuery.where('resale_product', resale_product)
     }
 
