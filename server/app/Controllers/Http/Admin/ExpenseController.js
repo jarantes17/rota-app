@@ -55,9 +55,19 @@ class ExpenseController {
 
     expense = await transform.item(expense, Transformer)
 
+    const expenseTypes = await FlexField.query()
+      .where('name', 'EXPENSE_TYPES')
+      .where('status', 'A')
+      .fetch()
+
     return response.status(201).send({
       data: {
-        expense: expense
+        expense: {
+          ...expense,
+          type: expenseTypes.rows.find(
+            (et) => et.name === 'EXPENSE_TYPES' && et.value === expense.type
+          )
+        }
       }
     })
   }
@@ -90,11 +100,21 @@ class ExpenseController {
 
     await expense.save()
 
+    const expenseTypes = await FlexField.query()
+      .where('name', 'EXPENSE_TYPES')
+      .where('status', 'A')
+      .fetch()
+
     expense = await transform.item(expense, Transformer)
 
     return response.status(200).send({
       data: {
-        expense: expense
+        expense: {
+          ...expense,
+          type: expenseTypes.rows.find(
+            (et) => et.name === 'EXPENSE_TYPES' && et.value === expense.type
+          )
+        }
       }
     })
   }
