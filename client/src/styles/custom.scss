@@ -1,0 +1,202 @@
+$font-family-base: "Poppins";
+
+$theme-colors: (
+  "primary": #ff1616,
+  "secondary": #f2f2f2,
+  "success": #469408,
+  "info": #029acf,
+  "warning": #ffc107,
+  "danger": #ef5b00,
+  "light": #fff,
+  "dark": #373a3c
+) !default;
+
+$bootstrap-primary: #ff1616 !default;
+$bootstrap-success: #469408 !default;
+$bootstrap-danger: #ef5b00 !default;
+$bootstrap-warning: #ffc107 !default;
+$bootstrap-info: #029acf !default;
+$bootstrap-secondary: #f2f2f2 !default;
+
+$enable-responsive-font-sizes: true;
+
+@import "gradients";
+@import "variables";
+@import "bootswatch";
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~@sweetalert2/theme-bootstrap-4/bootstrap-4.scss";
+@import "~react-perfect-scrollbar/dist/css/styles.css";
+
+.data-table-extensions {
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.7rem 1.2rem;
+}
+
+.data-table-extensions > .data-table-extensions-filter {
+  float: left;
+}
+
+.data-table-extensions > .data-table-extensions-filter > .icon {
+  float: left;
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABdUlEQVRIidXUv0uVURzH8ZcKZtgQQuFiNkRgu4ODQ5SroDg5OBhYhJP4DxTiD3QsaOhfCBIFcVFcdHNqCBxc5A5CBNYt8Uc2nHNRLo/ec5Q7+IGHA8/5PJ/393zPcw51VkON+Q704RGaUMI6vt8U/AzL+IezgmcLvdcNH0I5BpXwEeMYwzx24twJJnPDX+IYp3iHlgJPE17jbwSNpYa3xopTP6oUc4jOFMBEDP+SWhFm4zefUsyb0dyTAXgg7MW+0LpL1SD09BcaMwCwHQt7XDRZCbsnbOi+8GvmqBTHh1cBysJS72eGQ1scD2oZvwlL7coIb8Uf/EZzkeFivxfj+DYDMIq7WMFRLXO7sMlHeJ4Q/hQ/hUPZnVrRG6FNBxi4wteDvejdSA2v6L3zS24Nr2JgN4aFg1h9CU7nQgaxq/gmPcMPfK16N5MLuYN+fMASVvEZI8K5gbmbQlI0VQVZuLWQi+0q40k9IFMx/EU9wiuqS+WX6j+VXmu6igVzmAAAAABJRU5ErkJggg==");
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
+.data-table-extensions > .data-table-extensions-filter > .filter-text {
+  border: 0;
+  border-bottom: 1px solid #f5f5f5;
+  outline: none;
+  padding: 4px;
+  margin-left: 4px;
+  background-color: transparent;
+}
+
+.data-table-extensions
+  > .data-table-extensions-filter
+  > .filter-text::placeholder {
+  color: #ccc;
+}
+
+.data-table-extensions > .data-table-extensions-filter > .filter-text:focus,
+.data-table-extensions > .data-table-extensions-filter > .filter-text:hover {
+  border-bottom-color: #dfdfdf;
+}
+
+.data-table-extensions > .data-table-extensions-action {
+  float: right;
+  position: relative;
+}
+
+.data-table-extensions > .data-table-extensions-action > button {
+  float: right;
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 0.3rem;
+  outline: none;
+  margin-right: 0.3rem;
+}
+
+.data-table-extensions > .data-table-extensions-action > button::after {
+  display: block;
+  white-space: nowrap;
+  width: 60px;
+  margin-top: 30px;
+  margin-left: -20px;
+  -webkit-animation: fadeIn 0.4s;
+  animation: fadeIn 0.4s;
+  text-align: center;
+  background: #f5f5f5;
+  line-height: 24px;
+  border-radius: 5px;
+  font-size: 13px;
+  color: #ef5b00;
+}
+
+.data-table-extensions > .data-table-extensions-action > button.drop,
+.data-table-extensions > .data-table-extensions-action > button:hover {
+  background-color: #f5f5f5;
+}
+
+.data-table-extensions > .data-table-extensions-action > button.download {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAl0lEQVRIie3VIQ7CQBBG4Q9uUYVAYBAgUByfwCGaUIEgqSAcoYiyQJoG2qUVhP2TUZt5z+zM8E/Zo7rXrmvTpIegiumd9hBEJQmSYFxB4TlYzRnQeDvGyDe4NEBtdcU2RgBrlG/gJVax8JAFTi3wM5bfwkNmyF/gBeZDwUMyHNRbNRsanoL6Sn36813rcfHGWhVtk/+juQGi2j7/B36KCgAAAABJRU5ErkJggg==");
+}
+
+.data-table-extensions
+  > .data-table-extensions-action
+  > button.download.drop:hover::after {
+  content: none;
+}
+
+.data-table-extensions
+  > .data-table-extensions-action
+  > button.download:hover::after {
+  content: "Exportar";
+}
+
+.data-table-extensions > .data-table-extensions-action > button.print {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABPElEQVRIid3UPUoDURAH8N8mHkNEK2s9iTYaLIK12toFEbEStBE9gqCC4E0ECyMYsPAC6fNhkYlZkt3skgRE/zAw8958z7zHf0WCK7TRL6A2LsMm01EWtvGEe3wWJLOKXWzhuWwFJ5FdtYRuNXRPsi4rOUbD8y6WcYydHN3uNF95AdLYxwXuQm4Z9f+jyHipRICWQZbvIZ9jPfhmCftMnBpkWBb9sJlAmRatoBZ8LeSiuWQiwZFBK3pGFTTQCb4TciPuh+f9sGniQGr90zM4xHVG4ErKIAnKal9iMJubkG/HFd5NvlJYQz34esjLOMNeqoI0vaWjDtE1OZO8lz6O8Yp64pEmU5TmRUK5LZoLfybAFx6LlIr+/Wn0gA2TG1i4RbPiZ4vSDl8X5DzX1yZejL6JWagXPjYWmOwv4xsogGwR9jGNcAAAAABJRU5ErkJggg==");
+}
+
+.data-table-extensions
+  > .data-table-extensions-action
+  > button.print:hover::after {
+  content: "Imprimir";
+}
+
+.data-table-extensions > .data-table-extensions-action > .dropdown {
+  position: absolute;
+  top: 100%;
+  right: 5px;
+  z-index: 1000;
+  padding: 0;
+  margin: 0.125rem 0 0;
+  text-align: right;
+  list-style: none;
+  background-color: #f5f5f5;
+  background-clip: padding-box;
+  border: 1px solid #f5f5f5;
+  border-radius: 0.25rem;
+  line-height: 16px;
+  display: none;
+}
+
+.data-table-extensions > .data-table-extensions-action > .dropdown.drop {
+  -webkit-animation: fadeIn 0.3s;
+  animation: fadeIn 0.3s;
+  display: block;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.data-table-extensions > .data-table-extensions-action > .dropdown button {
+  display: block;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 13px;
+  color: #ef5b00;
+  padding: 4px 6px;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  text-align: left;
+}
+
+.data-table-extensions
+  > .data-table-extensions-action
+  > .dropdown
+  button:hover {
+  background-color: #fcfcfc;
+}
