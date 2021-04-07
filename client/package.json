@@ -2,6 +2,9 @@
   "name": "rota-web",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "10.19.0"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
     "@sweetalert2/theme-bootstrap-4": "^4.0.0",
