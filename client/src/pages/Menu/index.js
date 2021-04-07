@@ -48,7 +48,7 @@ export const Menu = props => {
   return (
     <S.Container className="container">
       <nav class="navbar navbar-light bg-light">
-        <a href="/#" class="navbar-brand">
+        <a href="javascript:void(0);" class="navbar-brand">
           Rota 73 - Acesso ao Menu
         </a>
         <ul class="nav navbar-nav navbar-right">
