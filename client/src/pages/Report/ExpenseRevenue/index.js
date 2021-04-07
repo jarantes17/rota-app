@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { Form } from "@unform/web"
 import { endOfDay, format } from "date-fns"
 
@@ -62,23 +62,6 @@ export const ExpenseRevenue = () => {
     { value: 12, label: "Dezembro" }
   ]
 
-  const initValues = () => {
-    const minYear = currentYear - 5
-
-    const yy = []
-    for (let i = currentYear; i >= minYear; i -= 1) {
-      yy.push({ value: i, label: i })
-    }
-    setYears(yy)
-
-    setMonths(mm)
-
-    retrieveData(
-      mm.find(m => m.value === currentMonth)?.value,
-      yy.find(y => y.value === currentYear)?.value
-    )
-  }
-
   const handleChangeMonth = newMonth => {
     currentMonth = newMonth.value
     retrieveData(currentMonth, currentYear)
@@ -134,8 +117,21 @@ export const ExpenseRevenue = () => {
   }
 
   useEffect(() => {
-    initValues()
-  }, [])
+    const minYear = currentYear - 5
+
+    const yy = []
+    for (let i = currentYear; i >= minYear; i -= 1) {
+      yy.push({ value: i, label: i })
+    }
+    setYears(yy)
+
+    setMonths(mm)
+
+    retrieveData(
+      mm.find(m => m.value === currentMonth)?.value,
+      yy.find(y => y.value === currentYear)?.value
+    )
+  }, [currentMonth, currentYear, mm])
 
   return (
     <Main

@@ -5,7 +5,6 @@ import {
   Product,
   User,
   Board,
-  Budget,
   ExpenseRevenue,
   Expense,
   Transaction,
@@ -36,7 +35,6 @@ export const Routes = () => {
         component={ExpenseRevenue}
       />
       <AdminRoute path="/admin/expenses" exact component={Expense} />
-      <AdminRoute path="/admin/budgets" exact component={Budget} />
       <AdminRoute path="/admin/transactions" exact component={Transaction} />
       <AdminRoute path="/admin/orders" exact component={Order} />
       <AdminRoute path="/admin/cash" component={Cash} />

@@ -26,7 +26,6 @@ import { Input } from "../../../components/common"
 import { tryAwait } from "../../../helpers"
 import { productUomService } from "../../../services"
 
-import * as S from "./styles"
 import {
   TableButton,
   DefaultContainer,
@@ -126,49 +125,52 @@ export const ProductUomTab = () => {
     [productUoms]
   )
 
-  const handleEditSubmit = useCallback(async form => {
-    try {
-      formRef.current.setErrors({})
-      await productUomSchema.validate(form, {
-        abortEarly: false
-      })
-      tryAwait({
-        promise: productUomService.update(editMode, form),
-        onResponse: ({
-          status,
-          data: {
-            data: { productUom }
-          }
-        }) => {
-          if (status === 200) {
-            toast.success("Unidade de Medida alterada com sucesso!")
-            setRegisterOpen(false)
-            productUoms[
-              productUoms.findIndex(p => p.id === editMode)
-            ] = productUom
-            setProductUoms(productUoms)
-            clearState()
-          } else {
-            toast.warning(
-              "Não foi possível alterar a unidade de medida. Tente novamente mais tarde!"
-            )
-          }
-        },
-        onError: () => {
-          toast.error("Erro ao alterar unidade de medida!")
-        },
-        onLoad: _loading => setLoading(_loading)
-      })
-    } catch (err) {
-      const validationErrors = {}
-      if (err instanceof Yup.ValidationError) {
-        err.inner.forEach(error => {
-          validationErrors[error.path] = error.message
+  const handleEditSubmit = useCallback(
+    async form => {
+      try {
+        formRef.current.setErrors({})
+        await productUomSchema.validate(form, {
+          abortEarly: false
         })
-        formRef.current.setErrors(validationErrors)
+        tryAwait({
+          promise: productUomService.update(editMode, form),
+          onResponse: ({
+            status,
+            data: {
+              data: { productUom }
+            }
+          }) => {
+            if (status === 200) {
+              toast.success("Unidade de Medida alterada com sucesso!")
+              setRegisterOpen(false)
+              productUoms[
+                productUoms.findIndex(p => p.id === editMode)
+              ] = productUom
+              setProductUoms(productUoms)
+              clearState()
+            } else {
+              toast.warning(
+                "Não foi possível alterar a unidade de medida. Tente novamente mais tarde!"
+              )
+            }
+          },
+          onError: () => {
+            toast.error("Erro ao alterar unidade de medida!")
+          },
+          onLoad: _loading => setLoading(_loading)
+        })
+      } catch (err) {
+        const validationErrors = {}
+        if (err instanceof Yup.ValidationError) {
+          err.inner.forEach(error => {
+            validationErrors[error.path] = error.message
+          })
+          formRef.current.setErrors(validationErrors)
+        }
       }
-    }
-  })
+    },
+    [editMode, productUoms]
+  )
 
   const handleDelete = id => {
     Swal.fire({

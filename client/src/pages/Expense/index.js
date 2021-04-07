@@ -29,7 +29,7 @@ import Main from "../../components/template/Main"
 import { Input, SelectOption } from "../../components/common"
 
 import "react-datepicker/dist/react-datepicker.css"
-import * as S from "./styles"
+
 import {
   TableButton,
   DefaultContainer,
@@ -137,50 +137,53 @@ export const Expense = () => {
         }
       }
     },
-    [expenses]
+    [expenses, payDate]
   )
 
-  const handleEditSubmit = useCallback(async form => {
-    try {
-      formRef.current.setErrors({})
-      await expenseSchema.validate(form, {
-        abortEarly: false
-      })
-      tryAwait({
-        promise: expenseService.update(editMode, form),
-        onResponse: ({
-          status,
-          data: {
-            data: { expense }
-          }
-        }) => {
-          if (status === 200) {
-            toast.success("Despesa alterada com sucesso!")
-            setRegisterOpen(false)
-            expenses[expenses.findIndex(p => p.id === editMode)] = expense
-            setExpenses(expenses)
-            clearState()
-          } else {
-            toast.warning(
-              "Não foi possível alterar a despensa. Tente novamente mais tarde!"
-            )
-          }
-        },
-        onError: () => {
-          toast.error("Erro ao alterar despesa!")
-        },
-        onLoad: _loading => setLoading(_loading)
-      })
-    } catch (err) {
-      const validationErrors = {}
-      if (err instanceof Yup.ValidationError) {
-        err.inner.forEach(error => {
-          validationErrors[error.path] = error.message
+  const handleEditSubmit = useCallback(
+    async form => {
+      try {
+        formRef.current.setErrors({})
+        await expenseSchema.validate(form, {
+          abortEarly: false
         })
-        formRef.current.setErrors(validationErrors)
+        tryAwait({
+          promise: expenseService.update(editMode, form),
+          onResponse: ({
+            status,
+            data: {
+              data: { expense }
+            }
+          }) => {
+            if (status === 200) {
+              toast.success("Despesa alterada com sucesso!")
+              setRegisterOpen(false)
+              expenses[expenses.findIndex(p => p.id === editMode)] = expense
+              setExpenses(expenses)
+              clearState()
+            } else {
+              toast.warning(
+                "Não foi possível alterar a despensa. Tente novamente mais tarde!"
+              )
+            }
+          },
+          onError: () => {
+            toast.error("Erro ao alterar despesa!")
+          },
+          onLoad: _loading => setLoading(_loading)
+        })
+      } catch (err) {
+        const validationErrors = {}
+        if (err instanceof Yup.ValidationError) {
+          err.inner.forEach(error => {
+            validationErrors[error.path] = error.message
+          })
+          formRef.current.setErrors(validationErrors)
+        }
       }
-    }
-  })
+    },
+    [editMode, expenses]
+  )
 
   const handleDelete = id => {
     Swal.fire({

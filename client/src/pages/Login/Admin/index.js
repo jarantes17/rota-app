@@ -29,34 +29,37 @@ export const LoginAdm = props => {
   const formRef = useRef(null)
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = useCallback(async form => {
-    try {
-      formRef.current.setErrors({})
+  const handleSubmit = useCallback(
+    async form => {
+      try {
+        formRef.current.setErrors({})
 
-      await authSchema.validate(form, {
-        abortEarly: false
-      })
-
-      tryAwait({
-        promise: authService.login(form),
-        onResponse: ({ data: { data } }) => {
-          dispatch(auth.loginAction(data))
-        },
-        onError: error => {
-          toast.error("Oops.. Usuário ou senha incorretos")
-        },
-        onLoad: _loading => setLoading(_loading)
-      })
-    } catch (err) {
-      const validationErrors = {}
-      if (err instanceof Yup.ValidationError) {
-        err.inner.forEach(error => {
-          validationErrors[error.path] = error.message
+        await authSchema.validate(form, {
+          abortEarly: false
         })
-        formRef.current.setErrors(validationErrors)
+
+        tryAwait({
+          promise: authService.login(form),
+          onResponse: ({ data: { data } }) => {
+            dispatch(auth.loginAction(data))
+          },
+          onError: () => {
+            toast.error("Oops.. Usuário ou senha incorretos")
+          },
+          onLoad: _loading => setLoading(_loading)
+        })
+      } catch (err) {
+        const validationErrors = {}
+        if (err instanceof Yup.ValidationError) {
+          err.inner.forEach(error => {
+            validationErrors[error.path] = error.message
+          })
+          formRef.current.setErrors(validationErrors)
+        }
       }
-    }
-  })
+    },
+    [dispatch]
+  )
 
   return (
     <RightSide isAdmin>

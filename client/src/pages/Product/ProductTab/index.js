@@ -36,7 +36,6 @@ import {
   productTypeService
 } from "../../../services"
 
-import * as S from "./styles"
 import {
   TableButton,
   DefaultContainer,
@@ -228,47 +227,50 @@ export const ProductTab = () => {
     [products, picture]
   )
 
-  const handleEditSubmit = useCallback(async form => {
-    try {
-      formRef.current.setErrors({})
-      await productSchema.validate(form, {
-        abortEarly: false
-      })
-      tryAwait({
-        promise: productService.update(editMode, form),
-        onResponse: ({
-          status,
-          data: {
-            data: { product }
-          }
-        }) => {
-          if (status === 200) {
-            toast.success("Produto alterado com sucesso!")
-            setRegisterOpen(false)
-            products[products.findIndex(p => p.id === editMode)] = product
-            setProducts(products)
-            clearState()
-          } else {
-            toast.warning(
-              "Não foi possível alterar o produto. Tente novamente mais tarde!"
-            )
-          }
-        },
-        onError: () => {
-          toast.error("Erro ao alterar produto!")
-        },
-        onLoad: _loading => setLoading(_loading)
-      })
-    } catch (err) {
-      const validationErrors = {}
-      if (err instanceof Yup.ValidationError) {
-        err.inner.forEach(error => {
-          validationErrors[error.path] = error.message
+  const handleEditSubmit = useCallback(
+    async form => {
+      try {
+        formRef.current.setErrors({})
+        await productSchema.validate(form, {
+          abortEarly: false
         })
-        formRef.current.setErrors(validationErrors)
+        tryAwait({
+          promise: productService.update(editMode, form),
+          onResponse: ({
+            status,
+            data: {
+              data: { product }
+            }
+          }) => {
+            if (status === 200) {
+              toast.success("Produto alterado com sucesso!")
+              setRegisterOpen(false)
+              products[products.findIndex(p => p.id === editMode)] = product
+              setProducts(products)
+              clearState()
+            } else {
+              toast.warning(
+                "Não foi possível alterar o produto. Tente novamente mais tarde!"
+              )
+            }
+          },
+          onError: () => {
+            toast.error("Erro ao alterar produto!")
+          },
+          onLoad: _loading => setLoading(_loading)
+        })
+      } catch (err) {
+        const validationErrors = {}
+        if (err instanceof Yup.ValidationError) {
+          err.inner.forEach(error => {
+            validationErrors[error.path] = error.message
+          })
+          formRef.current.setErrors(validationErrors)
+        }
       }
-    }
-  })
+    },
+    [editMode, products]
+  )
 
   const handleDelete = id => {
     Swal.fire({

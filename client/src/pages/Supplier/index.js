@@ -27,7 +27,6 @@ import { supplierService } from "../../services"
 
 import { Input } from "../../components/common"
 
-import * as S from "./styles"
 import {
   TableButton,
   DefaultContainer,
@@ -124,47 +123,50 @@ export const Supplier = () => {
     [suppliers]
   )
 
-  const handleEditSubmit = useCallback(async form => {
-    try {
-      formRef.current.setErrors({})
-      await supplierSchema.validate(form, {
-        abortEarly: false
-      })
-      tryAwait({
-        promise: supplierService.update(editMode, form),
-        onResponse: ({
-          status,
-          data: {
-            data: { supplier }
-          }
-        }) => {
-          if (status === 200) {
-            toast.success("Fornecedor alterado com sucesso!")
-            setRegisterOpen(false)
-            suppliers[suppliers.findIndex(p => p.id === editMode)] = supplier
-            setSuppliers(suppliers)
-            clearState()
-          } else {
-            toast.warning(
-              "Não foi possível alterar o fornecedor. Tente novamente mais tarde!"
-            )
-          }
-        },
-        onError: () => {
-          toast.error("Erro ao alterar fornecedor!")
-        },
-        onLoad: _loading => setLoading(_loading)
-      })
-    } catch (err) {
-      const validationErrors = {}
-      if (err instanceof Yup.ValidationError) {
-        err.inner.forEach(error => {
-          validationErrors[error.path] = error.message
+  const handleEditSubmit = useCallback(
+    async form => {
+      try {
+        formRef.current.setErrors({})
+        await supplierSchema.validate(form, {
+          abortEarly: false
         })
-        formRef.current.setErrors(validationErrors)
+        tryAwait({
+          promise: supplierService.update(editMode, form),
+          onResponse: ({
+            status,
+            data: {
+              data: { supplier }
+            }
+          }) => {
+            if (status === 200) {
+              toast.success("Fornecedor alterado com sucesso!")
+              setRegisterOpen(false)
+              suppliers[suppliers.findIndex(p => p.id === editMode)] = supplier
+              setSuppliers(suppliers)
+              clearState()
+            } else {
+              toast.warning(
+                "Não foi possível alterar o fornecedor. Tente novamente mais tarde!"
+              )
+            }
+          },
+          onError: () => {
+            toast.error("Erro ao alterar fornecedor!")
+          },
+          onLoad: _loading => setLoading(_loading)
+        })
+      } catch (err) {
+        const validationErrors = {}
+        if (err instanceof Yup.ValidationError) {
+          err.inner.forEach(error => {
+            validationErrors[error.path] = error.message
+          })
+          formRef.current.setErrors(validationErrors)
+        }
       }
-    }
-  })
+    },
+    [editMode, suppliers]
+  )
 
   useEffect(() => {
     retrieveSuppliers()

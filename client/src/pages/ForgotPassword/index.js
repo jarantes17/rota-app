@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from "react"
+import React, { useState, useRef, useCallback } from "react"
 import { Form } from "@unform/web"
 import { toast } from "react-toastify"
 
@@ -53,7 +53,7 @@ export const ForgotPassword = props => {
         formRef.current.setErrors(validationErrors)
       }
     }
-  })
+  }, [])
 
   const goBack = () => {
     props.history.goBack()
@@ -81,7 +81,7 @@ export const ForgotPassword = props => {
             >
               Recuperar Senha
             </LoadingButton>
-            <a href="#" onClick={() => goBack()}>
+            <a href="/#" onClick={() => goBack()}>
               &#x2190; Voltar
             </a>
           </S.Group>

@@ -26,7 +26,6 @@ import { Input } from "../../../components/common"
 import { tryAwait } from "../../../helpers"
 import { productTypeService } from "../../../services"
 
-import * as S from "./styles"
 import {
   TableButton,
   DefaultContainer,
@@ -122,49 +121,52 @@ export const ProductTypeTab = () => {
     [productTypes]
   )
 
-  const handleEditSubmit = useCallback(async form => {
-    try {
-      formRef.current.setErrors({})
-      await productTypeSchema.validate(form, {
-        abortEarly: false
-      })
-      tryAwait({
-        promise: productTypeService.update(editMode, form),
-        onResponse: ({
-          status,
-          data: {
-            data: { productType }
-          }
-        }) => {
-          if (status === 200) {
-            toast.success("Tipo de Produto alterado com sucesso!")
-            setRegisterOpen(false)
-            productTypes[
-              productTypes.findIndex(p => p.id === editMode)
-            ] = productType
-            setProductTypes(productTypes)
-            clearState()
-          } else {
-            toast.warning(
-              "Não foi possível alterar o tipo de produto. Tente novamente mais tarde!"
-            )
-          }
-        },
-        onError: () => {
-          toast.error("Erro ao alterar tipo de produto!")
-        },
-        onLoad: _loading => setLoading(_loading)
-      })
-    } catch (err) {
-      const validationErrors = {}
-      if (err instanceof Yup.ValidationError) {
-        err.inner.forEach(error => {
-          validationErrors[error.path] = error.message
+  const handleEditSubmit = useCallback(
+    async form => {
+      try {
+        formRef.current.setErrors({})
+        await productTypeSchema.validate(form, {
+          abortEarly: false
         })
-        formRef.current.setErrors(validationErrors)
+        tryAwait({
+          promise: productTypeService.update(editMode, form),
+          onResponse: ({
+            status,
+            data: {
+              data: { productType }
+            }
+          }) => {
+            if (status === 200) {
+              toast.success("Tipo de Produto alterado com sucesso!")
+              setRegisterOpen(false)
+              productTypes[
+                productTypes.findIndex(p => p.id === editMode)
+              ] = productType
+              setProductTypes(productTypes)
+              clearState()
+            } else {
+              toast.warning(
+                "Não foi possível alterar o tipo de produto. Tente novamente mais tarde!"
+              )
+            }
+          },
+          onError: () => {
+            toast.error("Erro ao alterar tipo de produto!")
+          },
+          onLoad: _loading => setLoading(_loading)
+        })
+      } catch (err) {
+        const validationErrors = {}
+        if (err instanceof Yup.ValidationError) {
+          err.inner.forEach(error => {
+            validationErrors[error.path] = error.message
+          })
+          formRef.current.setErrors(validationErrors)
+        }
       }
-    }
-  })
+    },
+    [editMode, productTypes]
+  )
 
   const handleDelete = id => {
     Swal.fire({

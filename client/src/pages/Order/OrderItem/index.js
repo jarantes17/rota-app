@@ -1,9 +1,9 @@
-import React, { useState } from "react"
+import React from "react"
 
 import NumberFormat from "react-number-format"
 
 import * as FaIcons from "react-icons/fa"
-import { MdAdd, MdCheck, MdEdit, MdSearch } from "react-icons/md"
+import { MdCheck, MdEdit } from "react-icons/md"
 
 import { Row, Col } from "reactstrap"
 

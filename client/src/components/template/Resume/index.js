@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import Clock from "react-live-clock"
 import { format } from "date-fns"
 import { InfoCard } from "../../common"
@@ -17,7 +17,7 @@ export default function ({ collapsedInfo }) {
     return format(new Date(), "dd/MM/yyyy")
   }
 
-  const retrieveInfo = () => {
+  const retrieveInfo = useCallback(() => {
     tryAwait({
       promise: reportService.resumeInfo(),
       onResponse: ({
@@ -34,7 +34,7 @@ export default function ({ collapsedInfo }) {
       },
       onError: () => {}
     })
-  }
+  }, [])
 
   useEffect(() => {
     retrieveInfo()

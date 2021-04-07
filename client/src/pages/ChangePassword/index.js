@@ -44,40 +44,43 @@ export const ChangePassword = props => {
     }
   }
 
-  const handleSubmit = useCallback(async form => {
-    try {
-      formRef.current.setErrors({})
+  const handleSubmit = useCallback(
+    async form => {
+      try {
+        formRef.current.setErrors({})
 
-      await authSchema.validate(form, {
-        abortEarly: false
-      })
-
-      const data = {
-        newPassword: form.newPassword,
-        expression: expressionValidation
-      }
-
-      tryAwait({
-        promise: authService.changePassword(data),
-        onResponse: () => {
-          toast.success("Senha redefinida com sucesso!")
-          props.history.push("/login?type=CLIENT")
-        },
-        onError: error => {
-          toast.error(error)
-        },
-        onLoad: _loading => setLoading(_loading)
-      })
-    } catch (err) {
-      const validationErrors = {}
-      if (err instanceof Yup.ValidationError) {
-        err.inner.forEach(error => {
-          validationErrors[error.path] = error.message
+        await authSchema.validate(form, {
+          abortEarly: false
         })
-        formRef.current.setErrors(validationErrors)
+
+        const data = {
+          newPassword: form.newPassword,
+          expression: expressionValidation
+        }
+
+        tryAwait({
+          promise: authService.changePassword(data),
+          onResponse: () => {
+            toast.success("Senha redefinida com sucesso!")
+            props.history.push("/login?type=CLIENT")
+          },
+          onError: error => {
+            toast.error(error)
+          },
+          onLoad: _loading => setLoading(_loading)
+        })
+      } catch (err) {
+        const validationErrors = {}
+        if (err instanceof Yup.ValidationError) {
+          err.inner.forEach(error => {
+            validationErrors[error.path] = error.message
+          })
+          formRef.current.setErrors(validationErrors)
+        }
       }
-    }
-  })
+    },
+    [expressionValidation, props]
+  )
 
   useEffect(() => {
     checkExpression()

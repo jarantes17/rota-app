@@ -548,6 +548,7 @@ export const Cash = props => {
               </Col>
             </Row>
           </S.Container>
+          {loader}
         </Main>
       )}
       <Modal

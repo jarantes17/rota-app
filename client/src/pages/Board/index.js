@@ -26,7 +26,6 @@ import { boardService } from "../../services"
 
 import { Input, SelectOption } from "../../components/common"
 
-import * as S from "./styles"
 import {
   DefaultContainer,
   TableContainer,

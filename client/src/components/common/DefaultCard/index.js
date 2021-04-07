@@ -1,13 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {
-  Button,
-  Card,
-  CardBody,
-  CardSubtitle,
-  CardText,
-  CardTitle
-} from "reactstrap"
+import { Card, CardBody, CardSubtitle, CardText, CardTitle } from "reactstrap"
 
 export const DefaultCard = ({ title, subtitle, value, display }) => {
   return (

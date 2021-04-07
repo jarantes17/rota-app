@@ -2,7 +2,6 @@ import React, { useState, useRef, useCallback } from "react"
 import { Form } from "@unform/web"
 import { toast } from "react-toastify"
 
-import { useDispatch } from "react-redux"
 import * as Yup from "yup"
 
 import * as S from "./styles"
@@ -30,7 +29,6 @@ const authSchema = Yup.object().shape({
 export const Register = props => {
   const formRef = useRef(null)
   const [loading, setLoading] = useState(false)
-  const dispatch = useDispatch()
 
   const handleSubmit = useCallback(
     async form => {
@@ -64,7 +62,7 @@ export const Register = props => {
         }
       }
     },
-    [dispatch, props]
+    [props]
   )
 
   const goBack = () => {

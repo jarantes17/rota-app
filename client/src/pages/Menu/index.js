@@ -48,7 +48,7 @@ export const Menu = props => {
   return (
     <S.Container className="container">
       <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">
+        <a href="/#" class="navbar-brand">
           Rota 73 - Acesso ao Menu
         </a>
         <ul class="nav navbar-nav navbar-right">
@@ -73,6 +73,7 @@ export const Menu = props => {
         <Row>
           <Col xl={12}>
             <object
+              aria-label="Cardápio Rota 73"
               data={menuPDF}
               type="application/pdf"
               width="100%"
