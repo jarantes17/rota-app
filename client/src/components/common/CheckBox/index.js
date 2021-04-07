@@ -8,11 +8,6 @@ import { ErrorContent } from "../../../styles/global"
 
 export const CheckBox = ({ name, content, ...rest }) => {
   const { fieldName, registerField, error, clearError } = useField(name)
-  const [checked, setChecked] = useState(false)
-
-  const handleChange = checked => {
-    setChecked(checked)
-  }
 
   const inputRef = useRef(null)
 

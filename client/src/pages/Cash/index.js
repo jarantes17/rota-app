@@ -223,7 +223,7 @@ export const Cash = props => {
           setHoursOfDay(hours_of_day)
           setAmounts(amounts)
         },
-        onError: error => {
+        onError: () => {
           toast.error("Erro ao buscar informações do caixa.")
         },
         onLoad: _loading => setLoadingCash(_loading)
@@ -291,7 +291,7 @@ export const Cash = props => {
             )}
             {!loadingCash && (
               <>
-                <Row className="m-t-2">
+                <Row className="mt-2">
                   <Col xl={3}>
                     <DefaultCard
                       title="Contas Fechadas"

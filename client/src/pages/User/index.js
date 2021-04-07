@@ -15,15 +15,13 @@ import {
   ModalFooter,
   ModalHeader,
   Row,
-  Spinner,
-  FormGroup
+  Spinner
 } from "reactstrap"
-import { MdEdit, MdDelete, MdViewList } from "react-icons/md"
+import { MdEdit } from "react-icons/md"
 
 import { toast } from "react-toastify"
 import * as Yup from "yup"
 
-import { fi } from "date-fns/esm/locale"
 import {
   CheckBox,
   Input,
@@ -34,7 +32,6 @@ import Main from "../../components/template/Main"
 import { tryAwait } from "../../helpers"
 import { userService, roleService } from "../../services"
 
-import * as S from "./styles"
 import {
   TableButton,
   DefaultContainer,
@@ -124,49 +121,52 @@ export const User = () => {
     return "I"
   }
 
-  const handleRegisterSubmit = useCallback(async form => {
-    try {
-      formRef.current.setErrors({})
-      await userSchema.validate(form, {
-        abortEarly: false
-      })
-
-      form.status = getStatus(form.status)
-
-      tryAwait({
-        promise: userService.store({ ...form }),
-        onResponse: ({
-          status,
-          data: {
-            data: { user }
-          }
-        }) => {
-          if (status === 201) {
-            toast.success("Usuário cadastrado com sucesso!")
-            setRegisterOpen(false)
-            setUsers([...users, user])
-            clearState()
-          } else {
-            toast.warning(
-              "Não foi possível salvar o usuário. Tente novamente mais tarde!"
-            )
-          }
-        },
-        onError: () => {
-          toast.error("Erro ao cadastrar usuário!")
-        },
-        onLoad: _loading => setLoading(_loading)
-      })
-    } catch (err) {
-      const validationErrors = {}
-      if (err instanceof Yup.ValidationError) {
-        err.inner.forEach(error => {
-          validationErrors[error.path] = error.message
+  const handleRegisterSubmit = useCallback(
+    async form => {
+      try {
+        formRef.current.setErrors({})
+        await userSchema.validate(form, {
+          abortEarly: false
         })
-        formRef.current.setErrors(validationErrors)
+
+        form.status = getStatus(form.status)
+
+        tryAwait({
+          promise: userService.store({ ...form }),
+          onResponse: ({
+            status,
+            data: {
+              data: { user }
+            }
+          }) => {
+            if (status === 201) {
+              toast.success("Usuário cadastrado com sucesso!")
+              setRegisterOpen(false)
+              setUsers([...users, user])
+              clearState()
+            } else {
+              toast.warning(
+                "Não foi possível salvar o usuário. Tente novamente mais tarde!"
+              )
+            }
+          },
+          onError: () => {
+            toast.error("Erro ao cadastrar usuário!")
+          },
+          onLoad: _loading => setLoading(_loading)
+        })
+      } catch (err) {
+        const validationErrors = {}
+        if (err instanceof Yup.ValidationError) {
+          err.inner.forEach(error => {
+            validationErrors[error.path] = error.message
+          })
+          formRef.current.setErrors(validationErrors)
+        }
       }
-    }
-  }, [])
+    },
+    [users]
+  )
 
   const handleEditSubmit = useCallback(
     async form => {
@@ -213,7 +213,7 @@ export const User = () => {
         }
       }
     },
-    [editMode]
+    [editMode, users]
   )
 
   useEffect(() => {

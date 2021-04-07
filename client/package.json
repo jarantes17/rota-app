@@ -36,6 +36,7 @@
     "react-live-clock": "^5.0.1",
     "react-moment": "^0.9.7",
     "react-number-format": "^4.4.1",
+    "react-pdf": "^5.2.0",
     "react-perfect-scrollbar": "^1.5.8",
     "react-pro-sidebar": "^0.4.4",
     "react-redux": "^7.2.1",

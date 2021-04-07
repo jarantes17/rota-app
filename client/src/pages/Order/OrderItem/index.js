@@ -37,32 +37,38 @@ export const OrderItem = ({ order, onEditClick, onCloseBillClick }) => {
                   </S.OrderItemCount>
                 </S.OrderItemWrapperLeft>
               </Col>
-              <Col> {order.id && (<S.OrderItemWrapper>
-                  <TableButton
-                    background="var(--dark)"
-                    onClick={() => {
-                      onEditClick(order.id)
-                    }}
-                    id={`edit_button${order.id}`}
-                  >
-                    <MdEdit />
-                  </TableButton>
-                  <Tooltip target={`edit_button${order.id}`} content="Editar" />
+              <Col>
+                {order.id && (
+                  <S.OrderItemWrapper>
+                    <TableButton
+                      background="var(--dark)"
+                      onClick={() => {
+                        onEditClick(order.id)
+                      }}
+                      id={`edit_button${order.id}`}
+                    >
+                      <MdEdit />
+                    </TableButton>
+                    <Tooltip
+                      target={`edit_button${order.id}`}
+                      content="Editar"
+                    />
 
-                  <TableButton
-                    background="var(--success)"
-                    onClick={() => {
-                      onCloseBillClick(order.id)
-                    }}
-                    id={`bill_button${order.id}`}
-                  >
-                    <MdCheck />
-                  </TableButton>
-                  <Tooltip
-                    target={`bill_button${order.id}`}
-                    content="Fechar Conta"
-                  />
-                </S.OrderItemWrapper>)}
+                    <TableButton
+                      background="var(--success)"
+                      onClick={() => {
+                        onCloseBillClick(order.id)
+                      }}
+                      id={`bill_button${order.id}`}
+                    >
+                      <MdCheck />
+                    </TableButton>
+                    <Tooltip
+                      target={`bill_button${order.id}`}
+                      content="Fechar Conta"
+                    />
+                  </S.OrderItemWrapper>
+                )}
               </Col>
             </Row>
             <S.CreationDateInfo>

@@ -3,11 +3,11 @@ import { toast } from "react-toastify"
 import DataTable from "react-data-table-component"
 import DataTableExtensions from "react-data-table-component-extensions"
 import { Col, Row, Spinner } from "reactstrap"
+import { format } from "date-fns"
 import Main from "../../components/template/Main"
 import { tryAwait } from "../../helpers"
 import { transactionService } from "../../services"
 import { DefaultContainer, TableContainer } from "../../styles/global"
-import { format } from "date-fns"
 
 export const Transaction = () => {
   const [transactions, setTransactions] = useState([])

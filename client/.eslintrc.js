@@ -31,6 +31,8 @@ module.exports = {
     "eslint no-nested-ternary": "off",
     "react/forbid-prop-types": "off",
     "no-shadow": "off",
-    "camelcase": "off"
+    camelcase: "off",
+    "func-names": "off",
+    "no-console": "off"
   }
 }

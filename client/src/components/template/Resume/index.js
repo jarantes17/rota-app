@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react"
 import Clock from "react-live-clock"
 import { format } from "date-fns"
-import { Card, CardBody, CardText } from "reactstrap"
 import { InfoCard } from "../../common"
 import * as S from "./styles"
 import SessionInfo from "../SessionInfo"
 
 import { tryAwait } from "../../../helpers"
-import { boardService } from "../../../services"
+import { reportService } from "../../../services"
 
 export default function ({ collapsedInfo }) {
   const [busyBoards, setBusyBoards] = useState(0)
@@ -18,17 +17,19 @@ export default function ({ collapsedInfo }) {
     return format(new Date(), "dd/MM/yyyy")
   }
 
-  const retrieveBusyBoards = () => {
+  const retrieveInfo = () => {
     tryAwait({
-      promise: boardService.busy(),
+      promise: reportService.resumeInfo(),
       onResponse: ({
         data: {
-          data: { boards }
+          data: { boards, orders, deliveries }
         }
       }) => {
-        setBusyBoards(boards.length)
+        setBusyBoards(boards)
+        setOpenedOrders(orders)
+        setTotalDeliveries(deliveries)
         setTimeout(() => {
-          retrieveBusyBoards()
+          retrieveInfo()
         }, 10000)
       },
       onError: () => {}
@@ -36,7 +37,7 @@ export default function ({ collapsedInfo }) {
   }
 
   useEffect(() => {
-    // retrieveBusyBoards()
+    retrieveInfo()
   }, [])
 
   return (
@@ -56,7 +57,7 @@ export default function ({ collapsedInfo }) {
           title="Mesas"
           subtitle="Mesas Ocupadas"
           quantity={busyBoards}
-          onClick={null} // todo - open boards and your respective orders
+          onClick={null}
         />
 
         <InfoCard

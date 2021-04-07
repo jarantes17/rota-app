@@ -77,6 +77,14 @@ Route.group(() => {
   Route.resource('expenses', 'ExpenseController')
     .apiOnly()
     .middleware(new Map([[['show', 'update', 'destroy'], ['findExpense']]]))
+
+  // Reports
+  Route.get('reports/expenseRevenue', 'ReportController.expenseRevenue').as(
+    'report.expenseRevenue'
+  )
+  Route.get('reports/resumeInfo', 'ReportController.resumeInfo').as(
+    'report.resumeInfo'
+  )
 })
   .middleware(['auth'])
   .namespace('Admin')

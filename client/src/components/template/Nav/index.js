@@ -14,7 +14,6 @@ import {
 import * as FaIcons from "react-icons/fa"
 import * as AllIcons from "react-icons/all"
 import Logo from "../Logo"
-import { history } from "../../../helpers"
 import { product } from "../../../helpers/store/fetchActions/product"
 import { auth } from "../../../helpers/store/fetchActions/auth"
 

@@ -59,7 +59,9 @@ export const Textarea = ({
             }}
             onChange={onChange}
             {...rest}
-          />
+          >
+            {defaultValue}
+          </S.Field>
         </S.InputWrapper>
       </S.Container>
       {error && <ErrorContent>{error}</ErrorContent>}

@@ -14,6 +14,8 @@ import billService from "./bills/billService"
 import cashService from "./cash/cashService"
 import transactionService from "./transactions/transactionService"
 import expenseService from "./expenses/expenseService"
+import reportService from "./report/reportService"
+import menuService from "./menu/menuService"
 
 export {
   api,
@@ -31,5 +33,7 @@ export {
   billService,
   cashService,
   transactionService,
-  expenseService
+  expenseService,
+  reportService,
+  menuService
 }

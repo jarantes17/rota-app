@@ -20,9 +20,11 @@ export const InfoCard = ({ title, subtitle, quantity, onClick }) => {
               <CardSubtitle>{subtitle}</CardSubtitle>
               <h1>{quantity ?? 0}</h1>
             </CardText>
-            <Button color="primary" onClick={onClick}>
-              Detalhes
-            </Button>
+            {onClick && (
+              <Button color="primary" onClick={onClick}>
+                Detalhes
+              </Button>
+            )}
           </CardBody>
         </Card>
       </div>

@@ -354,7 +354,7 @@ export const Order = props => {
           product,
           subtotal: parseFloat(product.resale_price * form.quantity).toFixed(2),
           status: "Opened",
-          quantity: parseInt(form.quantity, 0),
+          quantity: parseInt(form.quantity, 10),
           order_id: order?.id
         }
 
