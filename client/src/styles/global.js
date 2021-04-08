@@ -79,6 +79,16 @@ export default createGlobalStyle`
       "menu footer footer";
     height: 100vh;
     background-color: #f6f6fa;
+
+    // Responsive Tablet + Cellphone
+    @media(max-width: 768px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas:
+      "menu"
+      "content"
+      "footer"
+    }
   }
 
   .app-auth {

@@ -38,7 +38,7 @@ export default function ({ collapsedInfo }) {
 
   useEffect(() => {
     retrieveInfo()
-  }, [])
+  }, [retrieveInfo])
 
   return (
     <S.Container
