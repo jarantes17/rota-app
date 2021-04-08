@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef, useCallback } from "react"
 import { Form } from "@unform/web"
 import { endOfDay, format } from "date-fns"
 
@@ -116,7 +116,7 @@ export const ExpenseRevenue = () => {
     }
   }
 
-  useEffect(() => {
+  const initialize = useCallback(() => {
     const minYear = currentYear - 5
 
     const yy = []
@@ -132,6 +132,10 @@ export const ExpenseRevenue = () => {
       yy.find(y => y.value === currentYear)?.value
     )
   }, [currentMonth, currentYear, mm])
+
+  useEffect(() => {
+    initialize()
+  }, [])
 
   return (
     <Main
