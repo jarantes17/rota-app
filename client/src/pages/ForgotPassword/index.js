@@ -81,7 +81,7 @@ export const ForgotPassword = props => {
             >
               Recuperar Senha
             </LoadingButton>
-            <a href="javascript:void(0);" onClick={() => goBack()}>
+            <a href="/#" onClick={() => goBack()}>
               &#x2190; Voltar
             </a>
           </S.Group>
