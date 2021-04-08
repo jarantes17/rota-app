@@ -47,4 +47,8 @@ export const Container = styled.div`
   overflow: hidden;
   white-space: nowrap;
   background-color: var(--color-white);
+
+  @media(max-width: 768px) {
+    display: none!important;
+  }
 `

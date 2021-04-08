@@ -16,6 +16,10 @@ export const Container = styled.aside`
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
+
+  @media(max-width: 768px) {
+    display: none;
+  }
 `
 
 export const NavWidgets = styled.div`

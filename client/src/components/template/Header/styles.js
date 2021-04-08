@@ -18,4 +18,8 @@ export const Container = styled.header`
   h1 {
     font-size: 1.8em;
   }
+
+  @media(max-width: 768px) {
+    display: none!important;
+  }
 `

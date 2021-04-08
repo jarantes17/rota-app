@@ -45,7 +45,7 @@ export const LoginCli = props => {
         onResponse: ({ data: { data } }) => {
           dispatch(auth.loginAction(data))
         },
-        onError: error => {
+        onError: _ => {
           toast.error("Oops.. Usuário ou senha incorretos")
         },
         onLoad: _loading => setLoading(_loading)
@@ -59,7 +59,7 @@ export const LoginCli = props => {
         formRef.current.setErrors(validationErrors)
       }
     }
-  })
+  }, [dispatch])
 
   const responseFacebook = response => {
     const data = {

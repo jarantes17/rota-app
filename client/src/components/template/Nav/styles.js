@@ -31,6 +31,10 @@ export const Container = styled.aside`
   .pro-sidebar {
     transition: all 0.7s;
   }
+
+  @media(max-width: 768px) {
+    display: none;
+  }
 `
 
 export const LogoutContainer = styled.div`

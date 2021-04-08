@@ -110,7 +110,7 @@ export const Order = props => {
     }
   }
 
-  const filterOrders = filter => {
+  const filterOrders = useCallback(filter => {
     if (filter) {
       const filtered = orders.filter(
         ({ id, responsible_name, board: { code } }) =>
@@ -122,9 +122,9 @@ export const Order = props => {
     } else {
       setFilteredOrders(orders)
     }
-  }
+  }, [orders])
 
-  const fetchOpenedOrders = () => {
+  const fetchOpenedOrders = useCallback(() => {
     tryAwait({
       promise: orderService.opened(),
       onResponse: ({
@@ -144,7 +144,7 @@ export const Order = props => {
       },
       onLoad: _loading => setLoadingOrders(_loading)
     })
-  }
+  }, [setOrders, filterOrders, filteredOrder])
 
   const fetchResaleProducts = () => {
     tryAwait({
@@ -193,7 +193,7 @@ export const Order = props => {
     })
   }
 
-  const updateOrder = () => {
+  const updateOrder = useCallback(() => {
     const orderIndex = orders.findIndex(o => o.id === order.id)
 
     order.total_items = order.items
@@ -210,7 +210,7 @@ export const Order = props => {
     })
 
     setOrders(newOrders)
-  }
+  }, [order, orders])
 
   const updateOrderItem = async order_item_id => {
     const itemIndex = order.items.findIndex(o => o.id === order_item_id)
@@ -306,7 +306,7 @@ export const Order = props => {
         }
       }
     },
-    [boards]
+    [boards, setOrder]
   )
 
   const handleEditOrderSubmit = useCallback(
@@ -337,7 +337,7 @@ export const Order = props => {
         }
       }
     },
-    [order, boards]
+    [order, boards, setOrder]
   )
 
   const handleAddItemSubmit = useCallback(
@@ -376,7 +376,7 @@ export const Order = props => {
         }
       }
     },
-    [order, resaleProducts, boards]
+    [order, resaleProducts, updateOrder]
   )
 
   const handleCancelItemSubmit = order_item_id => {
@@ -475,7 +475,7 @@ export const Order = props => {
     fetchOpenedOrders()
     fetchResaleProducts()
     retrieveBoards()
-  }, [])
+  }, [fetchOpenedOrders])
 
   return (
     <Main

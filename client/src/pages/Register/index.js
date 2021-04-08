@@ -134,9 +134,7 @@ export const Register = props => {
             >
               Registrar
             </LoadingButton>
-            <a href="javascript:void(0);" onClick={() => goBack()}>
-              &#x2190; Voltar
-            </a>
+            <p onClick={() => goBack()}>&#x2190; Voltar</p>
           </S.Group>
         </Form>
       </S.Container>

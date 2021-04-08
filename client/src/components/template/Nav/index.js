@@ -47,20 +47,20 @@ export default function ({ collapsedMenu }) {
         </SidebarHeader>
         <SidebarContent>
           <Menu iconShape="round">
-            {modules?.map(module => {
+            {modules?.map((module, i) => {
               return (
                 (module?.subModules.length > 0 && (
-                  <SubMenu key="" title={module?.title} icon={module?.icon}>
-                    {module?.subModules.map(submodule => {
+                  <SubMenu key={i} title={module?.title} icon={module?.icon}>
+                    {module?.subModules.map((submodule, i) => {
                       return (
-                        <MenuItem>
+                        <MenuItem key={`sub${i}`}>
                           <Link to={submodule.path}>{submodule.title}</Link>
                         </MenuItem>
                       )
                     })}
                   </SubMenu>
                 )) || (
-                  <MenuItem icon={module?.icon}>
+                  <MenuItem key={i} icon={module?.icon}>
                     <Link to={module?.path}>{module?.title}</Link>
                   </MenuItem>
                 )

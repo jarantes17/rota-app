@@ -88,7 +88,7 @@ export const ProductTab = () => {
     setEditMode(false)
   }
 
-  const retrieveProducts = useCallback(() => {
+  const retrieveProducts = () => {
     tryAwait({
       promise: productService.fetch(),
       onResponse: ({
@@ -103,9 +103,9 @@ export const ProductTab = () => {
       },
       onLoad: _loading => setLoadingTable(_loading)
     })
-  }, [])
+  }
 
-  const retreiveProductCode = useCallback(() => {
+  const retreiveProductCode = () => {
     if (!editMode) {
       tryAwait({
         promise: productService.getProductCode(),
@@ -118,9 +118,9 @@ export const ProductTab = () => {
         onLoad: _loading => setLoading(_loading)
       })
     }
-  }, [])
+  }
 
-  const retrieveProductUoms = useCallback(() => {
+  const retrieveProductUoms = () => {
     tryAwait({
       promise: productUomService.fetch(),
       onResponse: ({
@@ -142,9 +142,9 @@ export const ProductTab = () => {
       },
       onLoad: _loading => setLoading(_loading)
     })
-  }, [])
+  }
 
-  const retrieveProductTypes = useCallback(() => {
+  const retrieveProductTypes = () => {
     tryAwait({
       promise: productTypeService.fetch(),
       onResponse: ({
@@ -166,7 +166,7 @@ export const ProductTab = () => {
       },
       onLoad: _loading => setLoading(_loading)
     })
-  }, [])
+  }
 
   const handleRegisterSubmit = useCallback(
     async form => {
