@@ -110,7 +110,7 @@ export const Order = props => {
     }
   }
 
-  const filterOrders = useCallback(filter => {
+  const filterOrders = filter => {
     if (filter) {
       const filtered = orders.filter(
         ({ id, responsible_name, board: { code } }) =>
@@ -122,9 +122,9 @@ export const Order = props => {
     } else {
       setFilteredOrders(orders)
     }
-  }, [orders])
+  }
 
-  const fetchOpenedOrders = useCallback(() => {
+  const fetchOpenedOrders = () => {
     tryAwait({
       promise: orderService.opened(),
       onResponse: ({
@@ -144,7 +144,7 @@ export const Order = props => {
       },
       onLoad: _loading => setLoadingOrders(_loading)
     })
-  }, [setOrders, filterOrders, filteredOrder])
+  }
 
   const fetchResaleProducts = () => {
     tryAwait({
@@ -193,7 +193,7 @@ export const Order = props => {
     })
   }
 
-  const updateOrder = useCallback(() => {
+  const updateOrder = () => {
     const orderIndex = orders.findIndex(o => o.id === order.id)
 
     order.total_items = order.items
@@ -210,7 +210,7 @@ export const Order = props => {
     })
 
     setOrders(newOrders)
-  }, [order, orders])
+  }
 
   const updateOrderItem = async order_item_id => {
     const itemIndex = order.items.findIndex(o => o.id === order_item_id)
@@ -306,7 +306,7 @@ export const Order = props => {
         }
       }
     },
-    [boards, setOrder]
+    [boards]
   )
 
   const handleEditOrderSubmit = useCallback(
@@ -337,7 +337,7 @@ export const Order = props => {
         }
       }
     },
-    [order, boards, setOrder]
+    [order, boards]
   )
 
   const handleAddItemSubmit = useCallback(
@@ -376,7 +376,7 @@ export const Order = props => {
         }
       }
     },
-    [order, resaleProducts, updateOrder]
+    [order, resaleProducts]
   )
 
   const handleCancelItemSubmit = order_item_id => {
@@ -475,7 +475,7 @@ export const Order = props => {
     fetchOpenedOrders()
     fetchResaleProducts()
     retrieveBoards()
-  }, [fetchOpenedOrders])
+  }, [])
 
   return (
     <Main
@@ -613,7 +613,7 @@ export const Order = props => {
                   </Row>
                 </fieldset>
                 <Row className="mt-3">
-                  <Col sm="12" md="6">
+                  <Col sm="12" md="6" className="mt-1">
                     <Button
                       block
                       color="primary"
@@ -623,7 +623,7 @@ export const Order = props => {
                       Pronto
                     </Button>
                   </Col>
-                  <Col sm="12" md="6">
+                  <Col sm="12" md="6" className="mt-1">
                     <Button
                       block
                       color="info"

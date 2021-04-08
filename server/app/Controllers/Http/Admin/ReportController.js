@@ -67,8 +67,8 @@ class ReportController {
 
     const deliveriesQuery = Order.query()
     deliveriesQuery.where('created_at', '>=', startOfDay(new Date()))
-    deliveriesQuery.whereNotIn('for_delivery', true)
-    const deliveries = await ordersQuery.fetch()
+    deliveriesQuery.where('for_delivery', true)
+    const deliveries = await deliveriesQuery.fetch()
 
     return response.status(200).send({
       data: {
