@@ -86,7 +86,6 @@ export const LoginCli = props => {
           },
           onError: error => {
             console.log(error)
-            toast.error("Oops.. Falha ao autenticar o usuário pelo Facebook 1")
           },
           onLoad: _loading => setLoading(_loading)
         })
