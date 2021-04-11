@@ -7,7 +7,7 @@ import { format } from "date-fns"
 import Main from "../../components/template/Main"
 import { tryAwait } from "../../helpers"
 import { transactionService } from "../../services"
-import { DefaultContainer, TableContainer } from "../../styles/global"
+import { DefaultContainer, Header, TableContainer } from "../../styles/global"
 
 export const Transaction = () => {
   const [transactions, setTransactions] = useState([])
@@ -84,6 +84,9 @@ export const Transaction = () => {
       <DefaultContainer>
         <Row>
           <Col sm={12}>
+            <Header>
+              <h5 className="m-0">Listagem de Transações</h5>
+            </Header>
             <TableContainer>
               <DataTableExtensions filterPlaceholder="Filtrar" {...tableData}>
                 <DataTable

@@ -9,8 +9,15 @@ const tryAwait = async ({
   try {
     onResponse(await promise)
   } catch ({ response }) {
+    let error
+    if (response) {
+      error = {
+        statusCode: response?.status || 500,
+        message: response?.data?.error
+      }
+    }
     onError(
-      response || {
+      error || {
         statusCode: 500,
         message: "Serviço indisponível."
       }

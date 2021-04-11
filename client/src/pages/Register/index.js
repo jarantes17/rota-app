@@ -48,7 +48,7 @@ export const Register = props => {
             props.history.push("/login?type=CLIENT")
           },
           onError: error => {
-            toast.error(error)
+            toast.error(error.message)
           },
           onLoad: _loading => setLoading(_loading)
         })

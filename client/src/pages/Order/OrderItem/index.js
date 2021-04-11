@@ -11,8 +11,12 @@ import { format } from "date-fns"
 import * as S from "./styles"
 import { TableButton } from "../../../styles/global"
 import { Tooltip } from "../../../components/common/Tooltip"
+import { authUtilService } from "../../../services"
 
 export const OrderItem = ({ order, onEditClick, onCloseBillClick }) => {
+  const user = authUtilService.getUserData()
+  const isWaiter = user?.roles?.filter(r => r.slug === "WAITER").length > 0
+
   return (
     <S.Container>
       <S.OrderItem>
@@ -53,20 +57,23 @@ export const OrderItem = ({ order, onEditClick, onCloseBillClick }) => {
                       target={`edit_button${order.id}`}
                       content="Editar"
                     />
-
-                    <TableButton
-                      background="var(--success)"
-                      onClick={() => {
-                        onCloseBillClick(order.id)
-                      }}
-                      id={`bill_button${order.id}`}
-                    >
-                      <MdCheck />
-                    </TableButton>
-                    <Tooltip
-                      target={`bill_button${order.id}`}
-                      content="Fechar Conta"
-                    />
+                    {!isWaiter && (
+                      <>
+                        <TableButton
+                          background="var(--success)"
+                          onClick={() => {
+                            onCloseBillClick(order.id)
+                          }}
+                          id={`bill_button${order.id}`}
+                        >
+                          <MdCheck />
+                        </TableButton>
+                        <Tooltip
+                          target={`bill_button${order.id}`}
+                          content="Fechar Conta"
+                        />
+                      </>
+                    )}
                   </S.OrderItemWrapper>
                 )}
               </Col>

@@ -150,8 +150,8 @@ export const User = () => {
               )
             }
           },
-          onError: () => {
-            toast.error("Erro ao cadastrar usuário!")
+          onError: error => {
+            toast.error(error.message)
           },
           onLoad: _loading => setLoading(_loading)
         })
@@ -420,7 +420,7 @@ export const User = () => {
                 <SelectOption
                   className="basic-multi-select"
                   classNamePrefix="select"
-                  defaultValue={[selectedRoles]}
+                  defaultValue={editMode ? [selectedRoles] : []}
                   isLoading={loading}
                   isClearable={false}
                   isMulti

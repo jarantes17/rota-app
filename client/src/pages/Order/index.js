@@ -638,7 +638,7 @@ export const Order = props => {
 
               <div className="mt-4">
                 <Header>
-                  <h5 className="m-0">Items do Pedido</h5>
+                  <h5 className="m-0">Itens do Pedido</h5>
                 </Header>
                 {order?.items?.length > 0 && (
                   <>

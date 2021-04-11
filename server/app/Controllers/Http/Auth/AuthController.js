@@ -131,6 +131,14 @@ class AuthController {
         'celphone'
       ])
 
+      const userExists = await User.findBy('email', user.email)
+
+      if (userExists) {
+        return response.status(400).send({
+          error: 'E-mail já utilizado por outra conta.'
+        })
+      }
+
       const clientRole = await Role.findBy('slug', 'CLIENT')
 
       user = await User.create(user, trx)
