@@ -84,6 +84,13 @@ module.exports = {
         rejectUnauthorized: false
       }
     },
+    pool: {
+      afterCreate: function (connection, callback) {
+        connection.query("SET TIME ZONE 'America/Sao_Paulo'", function (err) {
+          callback(err, connection)
+        })
+      }
+    },
     debug: Env.get('DB_DEBUG', false)
   }
 }

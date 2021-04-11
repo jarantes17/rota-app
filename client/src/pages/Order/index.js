@@ -266,7 +266,8 @@ export const Order = props => {
       showCancelButton: true,
       showConfirmButton: true,
       cancelButtonText: "Não",
-      confirmButtonText: "Sim"
+      confirmButtonText: "Sim",
+      confirmButtonColor: "#ff1616"
     }).then(({ isConfirmed }) => {
       if (isConfirmed) {
         props.history.push({
@@ -387,7 +388,8 @@ export const Order = props => {
       showCancelButton: true,
       showConfirmButton: true,
       cancelButtonText: "Não",
-      confirmButtonText: "Sim"
+      confirmButtonText: "Sim",
+      confirmButtonColor: "#ff1616"
     }).then(({ isConfirmed }) => {
       if (isConfirmed) {
         const data = {

@@ -279,7 +279,8 @@ export const ProductTab = () => {
       showCancelButton: true,
       showConfirmButton: true,
       cancelButtonText: "Não",
-      confirmButtonText: "Sim"
+      confirmButtonText: "Sim",
+      confirmButtonColor: "#ff1616"
     }).then(({ value }) => {
       if (value) {
         tryAwait({
@@ -338,7 +339,7 @@ export const ProductTab = () => {
       selector: "purchase_price",
       sortable: true,
       format: row =>
-        row.purchase_price.toLocaleString(undefined, {
+        (row.purchase_price || 0).toLocaleString(undefined, {
           maximumFractionDigits: 2,
           minimumFractionDigits: 2
         })
@@ -348,7 +349,7 @@ export const ProductTab = () => {
       selector: "resale_price",
       sortable: true,
       format: row =>
-        row.resale_price.toLocaleString(undefined, {
+        (row.resale_price || 0).toLocaleString(undefined, {
           maximumFractionDigits: 2,
           minimumFractionDigits: 2
         })
@@ -363,7 +364,7 @@ export const ProductTab = () => {
       name: "Estoque?",
       selector: "stock_control",
       sortable: true,
-      cell: row => <span>{row.resale_product ? "Sim" : "Não"}</span>
+      cell: row => <span>{row.stock_control ? "Sim" : "Não"}</span>
     },
     {
       name: "Ações",

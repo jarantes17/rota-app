@@ -66,7 +66,8 @@ export const Cash = props => {
       showCancelButton: true,
       showConfirmButton: true,
       cancelButtonText: "Não",
-      confirmButtonText: "Sim"
+      confirmButtonText: "Sim",
+      confirmButtonColor: "#ff1616"
     }).then(({ isConfirmed }) => {
       if (isConfirmed) {
         showLoader()

@@ -154,7 +154,7 @@ class OrderController {
         if (status === 'Opened') {
           const board = Board.find(board_id)
           board.status = 'Busy'
-          board.save(trx)
+          await board.save(trx)
         }
       }
 

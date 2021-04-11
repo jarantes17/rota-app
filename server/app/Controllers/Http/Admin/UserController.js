@@ -63,7 +63,7 @@ class UserController {
       if (user.password && !roles) {
         clientRole = await Role.findBy('slug', 'CLIENT')
       } else {
-        temporaryPassword = generateRandom(6)
+        temporaryPassword = await generateRandom(6)
         user.password = temporaryPassword
       }
 
@@ -125,14 +125,10 @@ class UserController {
       user.email = email || user.email
       user.status = status || user.status
 
-      user = await user.save(trx)
+      await user.save()
 
       await user.roles().sync(roles, null, trx)
       await trx.commit()
-
-      if (!user.password) {
-        // todo - send mail user to update passoword
-      }
 
       user = await transform.item(user, Transformer)
 

@@ -175,7 +175,8 @@ export const ProductTypeTab = () => {
       showCancelButton: true,
       showConfirmButton: true,
       cancelButtonText: "Não",
-      confirmButtonText: "Sim"
+      confirmButtonText: "Sim",
+      confirmButtonColor: "#ff1616"
     }).then(({ value }) => {
       if (value) {
         tryAwait({
