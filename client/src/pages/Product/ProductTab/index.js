@@ -170,9 +170,10 @@ export const ProductTab = () => {
 
   const handleRegisterSubmit = useCallback(
     async form => {
+      debugger
       try {
         const formData = new FormData()
-        if (picture.length > 0) {
+        if (picture?.length > 0) {
           formData.append("file", picture[0])
         }
 
@@ -185,13 +186,12 @@ export const ProductTab = () => {
           abortEarly: false
         })
 
-        const header = {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
-        }
         tryAwait({
-          promise: productService.store(formData, header),
+          promise: productService.store(formData, {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          }),
           onResponse: ({
             status,
             data: {

@@ -269,11 +269,13 @@ export const Order = props => {
       confirmButtonText: "Sim",
       confirmButtonColor: "#ff1616"
     }).then(({ isConfirmed }) => {
-      if (isConfirmed) {
+      if (isConfirmed && order.total_items > 0) {
         props.history.push({
           pathname: "/admin/cash",
           state: { order_id: id }
         })
+      } else if (order.total_items === 0) {
+        toast.error("Não é possivel fechar um pedido sem itens!")
       }
     })
   }
